@@ -343,10 +343,7 @@ Reading the scripts before running them also turned up a few changes I made up f
 | What broke | Cause | Fix |
 |---|---|---|
 | `az storage account create \` failed in PowerShell | `\` line continuation is bash syntax | Joined into one line (or used backticks) |
-| Container commands said the storage account was not found | I used the guide's example name instead of my own | Re-ran with my storage account name |
-| `terraform has no command named "Cg..."` | Pasted a file's contents into the terminal | Saved each block into a file in VS Code |
 | Invalid single-argument block errors | Several arguments on one line in the guide's HCL | One argument per line |
-| Plan showed `YOUR_PUBLIC_IP/32` | Example tfvars value never replaced | Caught in the plan, set my real IP with `/32` |
 | `no such host` (Key Vault, management API, state lock) | My router's DNS failed on new Azure hostnames | Public DNS resolvers, `terraform untaint` for the vault |
 | `PrivateIPAddressIsAllocated` for `10.0.1.4` | CLIENT01's dynamic NIC won the race for DC01's static address | `depends_on` the DC01 NIC, destroyed CLIENT01's NIC, re-applied |
 | `PlatformImageNotFound` | The Windows 11 SKU was retired | Listed SKUs, switched to `win11-25h2-pro` |
@@ -423,7 +420,8 @@ az vm start -g RG-FileServerLab -n CLIENT01 --no-wait
 # Full teardown, only when I am done with the series
 terraform destroy
 ```
- 
+<img width="643" height="151" alt="NTFSDeallocating" src="https://github.com/user-attachments/assets/dcb4ae04-56bc-4a83-afaa-0be4e5271a19" />
+
 Deallocated VMs still cost a little for their disks and static public IPs. The remote state resource group is not managed by this Terraform project, so `terraform destroy` does not remove it.
  
 ---
