@@ -2,7 +2,7 @@ Watch me explain this lab: [LoomLink](PASTE-VIDEO-LINK-HERE)
  
 # terraform-azure-ntfs-file-server
  
-Used Terraform and PowerShell to build a three-VM Windows environment in Azure (a domain controller, a file server, and a Windows 11 workstation) with Active Directory groups, NTFS permissions, and SMB shares, then tested that each user could reach only the data their job requires. Getting there meant working through fourteen real problems (shell syntax, my home network's DNS, VM image, quota and capacity limits, an IP address race, a Terraform provider quirk, and a bug in my own domain join script) until every access test came out the way the permission model says it should.
+Used Terraform and PowerShell to build a three-VM Windows environment in Azure (a domain controller, a file server, and a Windows 11 workstation) with Active Directory groups, NTFS permissions, and SMB shares, then tested that each user could reach only the data their job requires. Getting there meant working through multiple real problems (shell syntax, my home network's DNS, VM image, quota and capacity limits, an IP address race, a Terraform provider quirk, and a bug in my own domain join script) until every access test came out the way the permission model says it should.
  
 # Cloud Systems Administration, Lab 1: NTFS File Server
  
