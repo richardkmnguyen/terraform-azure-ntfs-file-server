@@ -1,4 +1,4 @@
-Watch me explain this lab: [LoomLink](PASTE-YOUR-VIDEO-LINK-HERE)
+Watch me explain this lab: [LoomLink](PASTE-VIDEO-LINK-HERE)
  
 # terraform-azure-ntfs-file-server
  
@@ -105,7 +105,7 @@ terraform {
 }
 ```
  
-<!-- SCREENSHOT: the container list command printing "tfstate" -->
+<img width="631" height="46" alt="NTFSRemoteStateAndConfig" src="https://github.com/user-attachments/assets/4b6c7899-d8f5-4015-a319-2c086ae72fd4" />
  
 ### 2. Wrote the Terraform configuration
 Six files make up the infrastructure:
@@ -138,7 +138,10 @@ security_rule {
  
 I ran `terraform init`, `terraform validate`, and `terraform plan`. The plan showed 23 resources to create, and reading it carefully caught a mistake (below).
  
-<!-- SCREENSHOT: terraform plan summary line -->
+<img width="290" height="45" alt="NTFSTerraformValidate" src="https://github.com/user-attachments/assets/218d1018-b5b5-4f46-bdfd-114b06f2ec25" />
+<img width="1854" height="425" alt="NTFSTerraformPlan" src="https://github.com/user-attachments/assets/d279e431-8dee-4395-a446-cb7df6a97a8c" />
+> I forgot to take a screenshot during this process, but both should showcase the configuration was valid and worked.
+
  
 ### 3. Wrote the configuration scripts
 Eight PowerShell scripts do the work inside the VMs, and `configure-lab.ps1` runs them in order:
@@ -158,8 +161,6 @@ The orchestration script pulls the admin password from Key Vault at runtime and 
 ### 4. Deployed, and worked through the errors
 `terraform apply` took several attempts, and `configure-lab.ps1` needed one re-run from the middle. Fourteen separate problems came up before everything worked. Each one is covered in the next section.
  
-<!-- SCREENSHOT: one of the Terraform apply errors -->
- 
 ### 5. Verified the permission model as each user
 I connected to CLIENT01 over RDP and signed in as `LAB\` users (using the domain prefix, because a plain username would try a local account), then opened each share by typing its path into File Explorer:
  
@@ -171,7 +172,36 @@ I connected to CLIENT01 over RDP and signed in as `LAB\` users (using the domain
 | `LAB\lisa.white` | `\\FS01\HR` | Read and write | As expected |
 | `LAB\john.smith` | `\\FS01\IT` | Full control | As expected |
 | `LAB\tom.davis` | `\\FS01\Finance` | Access Denied | As expected |
- 
+
+<img width="1909" height="1022" alt="NTFSSarahJonesLogin" src="https://github.com/user-attachments/assets/ef008ec6-d263-440e-a461-6e8bad6feee3" />
+<img width="845" height="476" alt="NTFSSarahJonesFinanceShareTrueFinal" src="https://github.com/user-attachments/assets/a5e5a3e9-e673-4b65-9ec4-5d068507cea3" />
+<img width="845" height="478" alt="NTFSSarahJonesHRShare" src="https://github.com/user-attachments/assets/f1189f39-622d-4463-a873-3e593781f028" />
+<img width="1120" height="254" alt="NTFSSarahJonesGroup" src="https://github.com/user-attachments/assets/58196747-2afc-49b2-a61e-385bacc50fec" />
+
+> Sarah as part of finance can read and write in the Finance share, but has no access to the HR share.
+
+<img width="1907" height="1021" alt="NTFSLisaWhiteLogin" src="https://github.com/user-attachments/assets/8d6bc3a8-ebc1-4cc4-99ac-7c241dc2d3cf" />
+<img width="845" height="475" alt="NTFSLisaWhiteHRShare" src="https://github.com/user-attachments/assets/0ad01a4b-d96a-41ea-8998-12928727be0e" />
+<img width="844" height="476" alt="NTFSLisaWhiteFinanceShare" src="https://github.com/user-attachments/assets/4d5956ed-5942-4ded-9eef-a5cb8a38d2c9" />
+<img width="1123" height="254" alt="NTFSLisaWhiteGroup" src="https://github.com/user-attachments/assets/609e9051-dda1-4aae-a944-f7f1e32a447d" />
+
+> Lisa as part of HR can read and write in the HR share, but only read the Finance share.
+
+<img width="1907" height="1024" alt="NTFSJohnSmithLogin" src="https://github.com/user-attachments/assets/f9f0ac51-d8a0-4ead-9574-c8afa52a47db" />
+<img width="843" height="476" alt="NTFSJohnSmithITShare" src="https://github.com/user-attachments/assets/126d8520-e78e-43a7-833f-e91e7c41957e" />
+<img width="844" height="476" alt="NTFSJohnSmithFinanceShare" src="https://github.com/user-attachments/assets/a92eeb3a-9e6c-451d-9bda-ecc473b4dbc3" />
+<img width="844" height="476" alt="NTFSJohnSmithHRShare" src="https://github.com/user-attachments/assets/8b772273-104d-4b43-9e68-fd356ecc165d" />
+<img width="1115" height="256" alt="NTFSJohnSmithGroup" src="https://github.com/user-attachments/assets/da6e2596-7718-41d7-ab93-74650f78c324" />
+
+> John as part of IT can read and write in all file shares.
+
+<img width="1909" height="1023" alt="NTFSTomDavisLogin" src="https://github.com/user-attachments/assets/56d29109-6470-4c78-aba8-57ae11649fa2" />
+<img width="844" height="476" alt="NTFSTomDavisFinanceShare" src="https://github.com/user-attachments/assets/a30b66eb-a4c3-4a57-b027-cd5814bc154a" />
+<img width="1122" height="256" alt="NTFSTomDavisGroup" src="https://github.com/user-attachments/assets/c5f3764c-bf35-4e70-a904-b0213c3553c5" />
+
+> Tom as part of sales cannot read the Finance share as he is part of sales.
+
+
 <!-- SCREENSHOT: sarah.jones writing to Finance, then Access Denied on HR -->
 <!-- SCREENSHOT: lisa.white failing to create a file on Finance -->
 <!-- SCREENSHOT: tom.davis Access Denied on Finance -->
