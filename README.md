@@ -140,6 +140,7 @@ I ran `terraform init`, `terraform validate`, and `terraform plan`. The plan sho
  
 <img width="290" height="45" alt="NTFSTerraformValidate" src="https://github.com/user-attachments/assets/218d1018-b5b5-4f46-bdfd-114b06f2ec25" />
 <img width="1854" height="425" alt="NTFSTerraformPlan" src="https://github.com/user-attachments/assets/d279e431-8dee-4395-a446-cb7df6a97a8c" />
+
 > I forgot to take a screenshot during this process, but both should showcase the configuration was valid and worked.
 
  
