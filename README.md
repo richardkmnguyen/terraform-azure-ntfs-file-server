@@ -403,7 +403,37 @@ This is a lab configuration. Some of it is solid and some of it would not be acc
 | Access works as designed | Signed in as each test user and confirmed all six scenarios behaved as expected |
  
 ---
- 
+<img width="631" height="46" alt="NTFSRemoteStateAndConfig1" src="https://github.com/user-attachments/assets/7a9129e8-91dc-4595-a4a7-b476f5fc56bb" />
+
+> Remote state checks
+
+<img width="290" height="45" alt="NTFSTerraformValidate" src="https://github.com/user-attachments/assets/b6a88ebd-2394-4291-b95a-894b97ee6e19" />
+
+> Configuration valid
+
+<img width="1854" height="425" alt="NTFSTerraformPlan" src="https://github.com/user-attachments/assets/331a581b-dc72-40d3-8b1c-01c616f50a0e" />
+
+> Terraform matches Azure
+
+<img width="769" height="83" alt="NTFSazVMList" src="https://github.com/user-attachments/assets/e6c09029-e6e1-414e-9d70-2decee49a311" />
+
+> All three VMs running
+
+<img width="539" height="567" alt="NTFSPassOutputADShareChecks1" src="https://github.com/user-attachments/assets/f6c1bd08-3e43-4aca-97db-d297fedde05b" />
+
+> AD objects exist and shares and NTFS permissions correct
+
+
+
+
+
+
+
+
+
+
+
+
 ## Teardown
  
 Running VMs bill by the hour. Because Lab 2 needs this environment to still exist, I deallocate the VMs instead of destroying them:
